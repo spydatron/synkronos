@@ -1,0 +1,24 @@
+
+ <div class="demo-layout-transparent mdl-layout mdl-js-layout ">
+  <header class="mdl-layout__header mdl-layout__header--transparent">
+    <div class="mdl-layout__header-row">
+
+
+      <div class="mdl-layout-spacer"></div>
+
+      <!-- Navigation with router directives-->
+      <nav class="mdl-navigation">
+        <a class="mdl-navigation__link" [routerLink]="['/']">Dashboard</a>
+        <!-- <a class="mdl-navigation__link" [routerLink]="['/cats']">Cats</a> -->
+      </nav>
+    </div>
+  </header>
+
+  <main class="mdl-layout__content">
+    <h1 class="header-text text-white font-weight-bold text-center">SYNK SMART HOME</h1>
+    <h4 class="header-text text-white  text-center">We care about your home...</h4><br>
+  </main>
+</div>
+
+<!-- Router Outlet -->
+<router-outlet></router-outlet>

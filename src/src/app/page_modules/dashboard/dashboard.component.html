@@ -1,0 +1,200 @@
+<div class="col col-12">
+<mat-card-header class="bg-primary">
+  <mat-card-title class="text-white font-weight-bold">Connection</mat-card-title>
+</mat-card-header>
+<mat-card class="card-inverse">
+    Broker: {{connectionStatus}}
+</mat-card><br>
+</div>
+
+<br>
+<div class="col col-6 col-sm-4 col-sm-3">
+  <mat-card-header class="card-success  text-center">
+    <mat-card-title class="text-white font-weight-bold">Devices</mat-card-title>
+  </mat-card-header>
+</div>
+
+<br><br>
+
+
+<div class="card-group card-group-dash">
+    <div class="w-100"></div>
+  <!----------------------------------------------------- Using Mat------------------------------------------------------------>
+  <div class="col col-6 col-sm-4 col-sm-3">
+    <mat-card-header class="bg-primary  text-center">
+      <mat-card-title class="text-white font-weight-bold ">DOOR (Sitting Room)</mat-card-title>
+    </mat-card-header>
+    <mat-card class="card-inverse card-door">
+      <mat-card-content>
+        <div class="avatar">
+          <img mat-card-image style="width:100px; height:100px" alt="" src="assets/img/smart-home/door-lock.svg">
+        </div>
+
+        <br>
+        <toggle-switch  [checked]="lockDoor" (change)="setDoorLock()" switchDataChecked="LOCK" switchDataUnchecked="UNLOCK" switchId="h-mode" id="door-switch"></toggle-switch>
+        <div>
+          <p>Door Status: {{doorStatus}}</p>
+        </div>
+      </mat-card-content>
+
+    </mat-card>
+  </div>
+
+  <div class="col col-6 col-sm-4 col-sm-3">
+    <mat-card-header class="bg-primary text-center">
+      <mat-card-title class="text-white font-weight-bold">Light</mat-card-title>
+    </mat-card-header>
+    <mat-card class="card-inverse card-light">
+      <mat-card-content>
+        <div class="avatar">
+          <img mat-card-image style="width:100px; height:100px" alt="" src="assets/img/smart-home/if_Light_bulb_653262.png">
+        </div>
+
+        <toggle-switch [checked]="switchOnLight" (change)="setLight()" switchId="l1-state"></toggle-switch><br>
+        <div class="light-status">
+          <p >Light Status: {{lightStatus}}</p>
+        </div><br>
+        <p class="card-light-dimer">Dimmer: {{dimmerValue}} %</p>
+        <mat-slider style="width:100%" class="" min="1" max="100" step="1" [value]="dimmerValue"  [(ngModel)]="dimmerValue" thumbLabel tickInterval="1" tickInterval="auto" onchange="this.handleDimmerSlider" ></mat-slider>
+        <button type="button" class="btn btn-primary btn-light" (click)="sendBrightness()">OK</button>
+      </mat-card-content>
+
+    </mat-card>
+  </div>
+
+  <div class="col col-6 col-sm-4 col-sm-3">
+    <mat-card-header class="bg-primary  text-center">
+      <mat-card-title class="text-white font-weight-bold">Light (Hue)</mat-card-title>
+    </mat-card-header>
+    <mat-card class="card-inverse card-hue">
+      <mat-card-content>
+        <div class="avatar" id="lightRGB">
+          <svg version="1.1" class="svg-icon" id="bulb-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+             width="50px" height="50px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
+          <path [attr.fill]="svgColor" fill-rule="nonzero" stroke="#7DD37D" d="M320,416c0,8.844-7.156,16-16,16h-96c-8.844,0-16-7.156-16-16s7.156-16,16-16h96C312.844,400,320,407.156,320,416z M304,448
+            h-96c-8.844,0-16,7.156-16,16s7.156,16,16,16c0,17.688,14.313,32,32,32h32c17.688,0,32-14.313,32-32c8.844,0,16-7.156,16-16
+            S312.844,448,304,448z M256,32c70.594,0,128,57.438,128,128c0,45.625-23.969,86.813-64.094,110.156L304,279.406v18.406V352h-96
+            v-54.188v-18.375l-15.906-9.281C151.938,246.781,128,205.594,128,160C128,89.438,185.438,32,256,32 M256,0
+            C167.625,0,96,71.625,96,160c0,59.063,32.375,110.063,80,137.813V352c0,17.688,14.313,32,32,32h96c17.656,0,32-14.313,32-32v-54.188
+            c47.625-27.719,80-78.75,80-137.813C416,71.625,344.375,0,256,0L256,0z"/>
+          </svg>
+        </div>
+
+        <div><toggle-switch [checked]="smartModeEnabled" (change)="sendHueAnimate()" switchId="l2-mode" switchDataChecked="ANIMATE" switchDataUnchecked="STOP" id="hue-mode"></toggle-switch></div>
+        <div><toggle-switch [checked]="switchOnHueLight" (change)="setHueLight()" switchId="l2-state" id="hue-state"></toggle-switch></div>
+
+        <div class="color-wheel" [id]="colorWheelId"></div>
+
+        <div class="hue-light-status">
+          <p >Light Status: {{hueLightStatus}}</p>
+        </div><br>
+        <button type="button" class="btn btn-primary" (click)="sendRGB()">OK</button>
+
+      </mat-card-content>
+
+    </mat-card>
+  </div>
+
+
+  <!----------------------------------------------------------------------------------------------------------------->
+</div>
+<br><br>
+<div class="col col-6 col-sm-4 col-sm-3">
+  <mat-card-header class="card-success  text-center">
+    <mat-card-title class="text-white font-weight-bold">Monitoring</mat-card-title>
+  </mat-card-header>
+</div>
+<br>
+<div class="card-group card-group-dash">
+  <div class="w-100"></div><br>
+  <div class="col col-6 col-sm-4 col-sm-3">
+    <mat-card-header class="bg-primary text-center">
+      <mat-card-title class="text-white font-weight-bold">Consumption</mat-card-title>
+    </mat-card-header>
+    <mat-card class="card-inverse">
+      <mat-card-content>
+        <div style="display: block">
+          <canvas baseChart
+                  [datasets]="barChartData"
+                  [labels]="barChartLabels"
+                  [options]="barChartOptions"
+                  [legend]="barChartLegend"
+                  [chartType]="barChartType"
+                  (chartHover)="chartHovered($event)"
+                  (chartClick)="chartClicked($event)"></canvas>
+        </div>
+        <button (click)="randomize()">Update</button>
+      </mat-card-content>
+
+    </mat-card>
+  </div>
+
+
+
+  <div class="col col-6 col-sm-4 col-sm-3">
+    <mat-card-header class="bg-primary text-center">
+      <mat-card-title class="text-white font-weight-bold">Climatic Condition</mat-card-title>
+    </mat-card-header>
+    <mat-card class="card-inverse card-climatic">
+      <mat-tab-group>
+        <mat-tab>
+          <ng-template mat-tab-label >
+            <h4 class="text-white">Temperature</h4>
+          </ng-template>
+          <mat-card-content>
+
+            <div class="slider-value-container"><br>
+              <div class="avatar">
+               <img style="width:100px; height:100px" alt="" src="assets/img/smart-home/thermometer-tool.png">
+              </div><br>
+              <div class="value temperature">
+                {{temperature}}
+                <p class="font-weight-normal desc">Celsius</p>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-tab>
+        <mat-tab >
+          <ng-template mat-tab-label >
+            <h4 class="text-white">Humidity</h4>
+          </ng-template>
+          <mat-card-content>
+
+            <div class="slider-value-container"><br>
+              <div class="avatar">
+               <img style="width:100px; height:100px" alt="" src="assets/img/smart-home/humidity-forecast-hydration.png">
+              </div><br>
+            <div class="value humidity">
+              {{humidity}}
+            </div>
+            </div>
+          </mat-card-content>
+        </mat-tab>
+      </mat-tab-group>
+
+
+    </mat-card>
+  </div>
+
+  <div class="col col-6 col-sm-4 col-sm-3">
+    <mat-card-header class="bg-primary text-center">
+      <mat-card-title class="text-white font-weight-bold">Security</mat-card-title>
+    </mat-card-header>
+    <mat-card class="card-inverse card-security">
+      <mat-card-content>
+        <div class="avatar">
+          <!-- <img alt="" src="assets/img/ic_lock_black_24dp/web/ic_lock_black_24dp_2x.png"> -->
+          <img style="width:100px; height:100px" alt="" [src]="motionIcon">
+        </div><br>
+        <div>
+          <p> Motion Status: {{motionStatus}}</p>
+        </div>
+      </mat-card-content>
+
+    </mat-card>
+  </div>
+
+</div>
+<br>
+
+

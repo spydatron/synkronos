@@ -1,0 +1,42 @@
+<!--<div class="switch can-toggle">-->
+  <!--<input id="a" type="checkbox">-->
+  <!--<label for="a">-->
+    <!--<div class="can-toggle__switch" data-checked="On" data-unchecked="Off"></div>-->
+  <!--</label>-->
+<!--</div>-->
+
+
+
+
+<!--<span class="switch"-->
+      <!--[class.checked]="checked"-->
+      <!--[class.disabled]="disabled"-->
+      <!--[class.switch-large]="size === 'large'"-->
+      <!--[class.switch-medium]="size === 'medium'"-->
+      <!--[class.switch-small]="size === 'small'"-->
+      <!--[style.background-color]="getColor()"-->
+      <!--[style.border-color]="getColor('borderColor')"-->
+<!--&gt;-->
+  <!--<small [style.background]="getColor('switchColor')">-->
+  <!--</small>-->
+
+<!--</span>-->
+
+<span class="can-toggle"
+      [class.checked]="checked"
+      [class.disabled]="disabled"
+      [class.switch-large]="size === 'large'"
+      [class.switch-medium]="size === 'medium'"
+      [class.switch-small]="size === 'small'"
+      [style.background-color]="getColor('switchColor')"
+      [style.border-color]="getColor('borderColor')"
+>
+ <input [id]="switchId" type="checkbox">
+  <label [for]=switchId>
+  <div [class]="switchInputClass" [attr.data-checked]="switchDataChecked" [attr.data-unchecked]="switchDataUnchecked"></div>
+  </label>
+
+  <small [style.background]="getColor('switchColor')">
+  </small>
+
+</span>
